@@ -43,15 +43,16 @@
         password : ''
       }
     }),
-
-    created () {
-      this.ActionSetUser({naome: 'fulano', email : 'oi@aiods.com'})
-    },
   
     methods: {
-      ...mapActions('auth',['ActionSetUser']),
-      submit () {
-        console.log(this.form)
+      ...mapActions('auth',['ActionDoLogin']),
+      async submit () {
+        try {
+          await this.ActionDoLogin(this.form)
+           this.$router.push({ name: 'home'})
+        } catch (err) {
+          alert(err.data ? err.data.message : 'Não foi possível fazer o login' )
+        }
       }
     }
   }
