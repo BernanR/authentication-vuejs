@@ -7,7 +7,7 @@ import './assets/scss/app.scss'
 
 Vue.config.productionTip = false
 
-window._Vue = new Vue({
+new Vue({
   router,
   store,
   render: h => h(App),
