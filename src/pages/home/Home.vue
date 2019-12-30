@@ -6,7 +6,8 @@
     </div>
 
     <div class="home-links">
-      <router-link  class="home-link" :id="{ name : 'watchlist' }" >
+
+      <router-link  class="home-link" :to="{ name : 'watchlist' }" >
         <i class="material-icons md-48">playlist_play</i>
         <span>Quero assistir</span>
       </router-link>
@@ -20,13 +21,13 @@
         <span>Todas as séries</span>
       </a>
     </div>
+
   </div>
 </template>
 
 
 <script>
   import { mapState } from 'vuex'
-
   export default {
     name : 'Home',
     computed : {
