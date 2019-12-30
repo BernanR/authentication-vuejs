@@ -9,35 +9,36 @@ export const ActionDoLogin = ({ dispatch }, payload) => {
     })
 }
 
-export const ActionCheckToken = ({ dispatch, state}) => {
-    if(state.token){
-        return Promise.resolve(state.token)
-    }
+export const ActionCheckToken = ({dispatch,state}) =>{
+	console.log("action check")
+	if(state.token){
+		return Promise.resolve(state.token)
+	}
 
-    const token = storage.getLocalToken()
+	const token = storage.getLocalToken()
 
-    if( !token ) {
-        return Promise.reject(new Error('Token inválido'))
-    }
+	if (!token) return Promise.reject(new Error('Token Inválido'))
 
-    dispatch("ActionSetToken", token)
-    return dispatch('ActionLoadSession')
+	dispatch('ActionSetToken', token)
+
+	return dispatch('ActionLoadSession')
 
 }
 
 export const ActionLoadSession = ({ dispatch }) => {
-    return new Promise(async (resolve, reject ) => {
-        try {
-            const { data : {  user} } = await services.auth.loadSession()
+	console.log("ActionLoadSession")
+	return new Promise(async (resolve, reject) => {
+		try {
+			const { data : {user} } = await services.auth.loadSession()
 
-            dispatch('ActionSetUser', user )
-            resolve()
-
-        } catch (err){
-            dispatch('ActionSignOut')
-            reject(err)
-        }
-    })
+			dispatch('ActionSetUser', user)
+			//o token já esta sendo setado na ActionCheckToken
+			resolve()
+		} catch (err) {
+			dispatch('ActionSignOut')
+			reject(err)
+		}
+	});
 }
 
 export const ActionSetUser = ({ commit }, payload) => {
@@ -45,14 +46,14 @@ export const ActionSetUser = ({ commit }, payload) => {
 }
 
 export const ActionSetToken = ({ commit }, payload) => {
-    storage.setHeaderToken(payload); // seta o token no cabeçalho http
-    storage.setLocalToken(payload); // seta o token no localStorage
-    commit(types.SET_TOKEN, payload);
+	storage.setLocalToken(payload)
+	storage.setHeaderToken(payload)
+    commit(types.SET_TOKEN, payload)
 }
 
 export const ActionSignOut = ({ dispatch }) => {
-    storage.setHeaderToken('')
-    storage.deleteLocalToken()
+	storage.setLocalToken('')
+	storage.setHeaderToken()    
     dispatch('ActionSetUser', {})
-    dispatch('ActionSetToken', '')
+	dispatch('ActionSetToken', '')
 }

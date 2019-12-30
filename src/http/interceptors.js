@@ -1,11 +1,10 @@
-import store from "../store";
+import store from '@/modules/auth'
 
-export default req => {
-    return ({ status }) => {
-        console.log(req);
-        if(status === 401){
-            store.dispatch('auth/ActionSignOut')
-            window._Vue.$router.push({ name : 'login'}) // variável window recebe uma instancia do vuew
-        }
+export default () => {
+  return ({ status }) => {
+    if (status === 401) {
+      store.dispatch('auth/ActionSignOut')
+      window._Vue.$router.push({ name: 'login' })
     }
+  }
 }
