@@ -7,10 +7,16 @@
 
     <div class="home-links">
 
-      <router-link  class="home-link" :to="{ name : 'watchlist' }" >
+      <router-link  
+        class="home-link" 
+        :key="i"
+        v-for="(route,i) in routes"
+        :to="{ name : route.name }" 
+      >
         <i class="material-icons md-48">playlist_play</i>
-        <span>Quero assistir</span>
+        <span>{{route.meta.label}}</span>
       </router-link>
+        
 
       <a href="#" class="home-link">
         <i class="material-icons md-48">playlist_add_check</i>
@@ -31,7 +37,12 @@
   export default {
     name : 'Home',
     computed : {
-      ...mapState('auth',['user'])
+      ...mapState('auth',['user']),
+      routes () {
+        return this.$router.options.routes.filter(route => (
+            route.meta && route.meta.showNavbar
+        ))
+      }
     }
   }
 
