@@ -10,17 +10,3 @@ export default [
     ,...watchlist
     ,...showSerie
   ]
-
-  // routes : [
-  //   {
-  //     name : '/',
-  //     path: '/', 
-  //     component : () => import("../pages/home/Home") 
-  //   },
-  //   {
-  //     name : 'home',
-  //     path: '/home', 
-  //     component : () => import("../pages/home/Home") 
-  //   },
-  //   login
-  // ]

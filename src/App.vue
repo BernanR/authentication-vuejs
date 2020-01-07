@@ -14,7 +14,6 @@
     },
     computed: {
       showNavbar( ){
-        console.log(this.$route)
         return this.$route.name != 'home' && this.$route.name != 'login'
       }
     }
