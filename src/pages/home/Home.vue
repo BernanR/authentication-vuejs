@@ -92,6 +92,7 @@
     
     .home-link:first-child{background-color: var(--blue);}
     .home-link:nth-child(2){background-color: var(--orange);}
+    .home-link:nth-child(3){background-color: var(--teal);}
     .home-link:last-child{background-color: var(--red);}
 
   }
